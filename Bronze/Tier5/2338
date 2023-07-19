@@ -1,0 +1,34 @@
+/*2338번
+문제
+두 수 A, B를 입력받아, A+B, A-B, A×B를 구하는 프로그램을 작성하시오.
+
+입력
+첫째 줄에 A가, 둘째 줄에 B가 주어진다. 각각의 수는 10진수로 1,000자리를 넘지 않으며 양수와 음수가 모두 주어질 수 있다.
+
+출력
+첫째 줄에 A+B, 둘째 줄에 A-B, 셋째 줄에 A×B를 출력한다. 
+각각을 출력할 때, 답이 0인 경우를 제외하고는 0으로 시작하게 해서는 안 된다(1을 01로 출력하면 안 된다는 의미)
+*/
+
+import java.math.BigInteger;
+import java.util.*;
+public class Main {
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        String num1 = scan.nextLine();
+        String num2 = scan.nextLine();
+        BigInteger bigNum1 = new BigInteger(num1);
+        BigInteger bigNum2 = new BigInteger(num2);
+
+        System.out.println(bigNum1.add(bigNum2));
+        System.out.println(bigNum1.subtract(bigNum2));
+        System.out.println(bigNum1.multiply(bigNum2));
+
+        scan.close();
+    }
+}
+/*
+문제를 처음 풀었을 때 단순히 int형으로 코딩을 함. 결과 값 런타임 에러로 뜸
+검색을 한 결과 int형은 10자리 밖에 저장을 하지 못함. 그래서 문자형으로 입력을 받은 후 BigInteger를 사용하여 
+사칙 연산을 진행함
+*/
