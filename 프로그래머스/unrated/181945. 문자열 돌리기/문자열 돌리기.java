@@ -5,7 +5,7 @@ public class Solution {
         Scanner sc = new Scanner(System.in);
         String a = sc.next();
         for(char ch : a.toCharArray()){
-            System.out.println(Character.toString(ch));
+            System.out.println(ch);
         }
     }
 }
