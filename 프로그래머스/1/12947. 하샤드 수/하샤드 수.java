@@ -1,23 +1,11 @@
 class Solution {
-    public boolean solution(int x) {
-        boolean answer = true;
-        
+    public boolean solution(int x) {        
         int sum = 0;
         int num = x;
         
-        while(num != 0){
-            try{
+        do{
             sum += num % 10;
-            System.out.println(sum);
-            num /= 10;    
-            }catch(ArithmeticException e){
-                System.out.println("error");
-                
-            }
-            
-        }
-        
-        
+        }while((num /= 10) != 0);
         
         return x % sum == 0;
     }
