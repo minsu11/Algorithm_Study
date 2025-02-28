@@ -1,4 +1,5 @@
 class Solution {
+    // 점화식 사용해서 풀어야함
     public long solution(int n) {
         if(n ==1){
             return 1;
