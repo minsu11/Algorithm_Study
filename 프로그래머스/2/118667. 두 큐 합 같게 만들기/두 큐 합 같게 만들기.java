@@ -1,6 +1,7 @@
 import java.util.*;
 class Solution {
     public int solution(int[] queue1, int[] queue2) {
+        // 두 큐의 최대 움직임에 대한 계산 했으면 더 쉽게 끝냈을 거
         int answer = 0;
         long result1 = 0;
         long result2 =0;
