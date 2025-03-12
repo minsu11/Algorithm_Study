@@ -1,47 +1,30 @@
 class Solution {
     public int[] solution(String[] wallpaper) {
-        int[] answer = new int[4];
-        int lux = 10000; // 시작점
-        int luy = 10000;
+       char text[][]= new char[wallpaper.length][wallpaper[0].length()];
         
-        int rdx = 0;
-        int rdy = 0; // 끝 부분
-        String[][] strArr = new String[wallpaper.length][wallpaper[0].length()];
-        
-        for(int i = 0; i < wallpaper.length; i++){
-            strArr[i] = wallpaper[i].split("");
+        //텍스트 분류
+        for(int i =0;i<wallpaper.length;i++) {
+            text[i] = wallpaper[i].toCharArray();
         }
-        
-        for(int i = 0; i < strArr.length; i++){
-            for(int j = 0; j < strArr[i].length; j++){
-                if(strArr[i][j].equals(".")){
-                    continue;
-                }
-                // #인 경우만 나믐
-                if(i < lux){
-                    lux = i;
-                }
-                
-                if(rdx < i+1){
-                    rdx = i+1;
-                }
-                
-                if(j < luy){
-                    luy =j;
-                }
-                
-                if(rdy < j+1){
-                    rdy = j+1;
+        // 시작점(lux,luy) 끈점(rdx, rdy)
+        int lux= wallpaper.length, luy= wallpaper[0].length(), rdx=0, rdy =0;
+        boolean first_check = false;
+        // 드래그 반복문
+        for(int size_x =0; size_x < wallpaper.length; size_x++){
+            for(int size_y = 0; size_y<wallpaper[size_x].length(); size_y++){
+                if(text[size_x][size_y] == '#'){
+                    if(size_x < lux && size_y<luy){
+                        lux = size_x;
+                        luy = size_y;
+                    }
+                    if(size_x > rdx && size_y >rdy){
+                        rdx = size_x; rdy = size_y;
+                    }
+
                 }
             }
         }
-        
-        answer[0] = lux;
-        answer[1] = luy;
-        answer[2] = rdx;
-        answer[3] = rdy;
-        
-        
+        int answer[] = {lux,luy,rdx,rdy};
         return answer;
     }
 }
