@@ -35,11 +35,6 @@ class Solution {
             answer = new int[1]; answer[0] = 3;
         }
         
-        System.out.println(x1);
-        System.out.println(x2);
-        System.out.println(x3);
-        
-        
         return answer;
     }
     
