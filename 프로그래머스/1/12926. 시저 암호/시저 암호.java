@@ -1,24 +1,15 @@
 class Solution {
     public String solution(String s, int n) {
-        String answer = "";
         StringBuilder sb = new StringBuilder();
-        String str = Character.toString(s.charAt(0));
         
         for(int i = 0; i < s.length(); i++){
             char c = s.charAt(i);
             if(c >= 97 && c <= 122 ){
-                c += n;
-                if( c > 122){
-                    c -= 123;
-                    c += 97;
-                }
+                c = (char) (((c - 'a' +n) % 26) +'a');
             }
             else if(c >= 65 && c <= 90){
-                c += n;
-                if( c > 90){
-                    c -= 91;
-                    c += 65 ;
-                }
+                c = (char)(((c - 'A' + n) % 26) + 'A');
+                
             }
             
             sb.append(Character.toString(c));
