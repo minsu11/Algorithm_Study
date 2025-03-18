@@ -4,8 +4,8 @@ class Solution {
     public int solution(int[][] board, int[] moves) {
         int answer = 0;
         int[] moveCnt = new int[board[0].length];
-        int[] basket =new int[board.length];
-        int idx = 0;
+        List<Integer> list = new ArrayList<>();
+
         for(int i = 0; i < moveCnt.length; i++){
             for(int j = 0; j < board.length; j++){
                 if(board[j][i] >0){
@@ -13,7 +13,6 @@ class Solution {
                 }
             }
         }
-        List<Integer> list = new ArrayList<>();
         for(int i = 0; i < moves.length; i++){
             int move = moves[i]; // board[][moves[i]]
             int cnt = moveCnt[move-1];
