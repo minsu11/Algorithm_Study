@@ -6,14 +6,6 @@ class Solution {
         int a = sc.nextInt();
         int b = sc.nextInt();
 
-        for(int i = 0; i < b; i++){
-            StringBuilder sb = new StringBuilder(b);
-            for(int j = 0; j < a; j++){
-                sb.append("*");
-            }
-            System.out.println(sb.toString());
-        }
-        
-
+        System.out.println(a + b);
     }
 }
