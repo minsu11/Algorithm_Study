@@ -1,11 +1,5 @@
 class Solution {
     public int solution(int n) {
-        int num = (int) Math.sqrt(n);
-        if(n == num*num){
-            return 1;
-        }
-        else{
-            return 2;
-        }
+        return Math.sqrt(n) % 1 == 0? 1:2;
     }
 }
