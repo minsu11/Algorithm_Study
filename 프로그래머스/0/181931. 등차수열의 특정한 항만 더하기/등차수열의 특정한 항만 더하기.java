@@ -4,10 +4,10 @@ class Solution {
         int n = 0;
         for(int i = 0; i < included.length; i++){
             if(included[i]){
-                answer += d*i;
-                n++;
+                answer += a+ d*i;
+
             }
         }
-        return answer + a*n;
+        return answer;
     }
 }
