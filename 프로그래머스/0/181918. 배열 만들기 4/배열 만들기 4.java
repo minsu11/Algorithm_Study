@@ -1,20 +1,19 @@
 import java.util.*;
+
 class Solution {
     public int[] solution(int[] arr) {
-        List<Integer> list = new ArrayList<>();
-        list.add(arr[0]);
-        for(int i = 1; i < arr.length; i++){
-            while(list.size() > 0 && list.get(list.size()-1) >= arr[i]){
-                list.remove(list.size()-1);
+        int[] stack = new int[arr.length];
+        int top = 0;
+        for(int i = 0; i < arr.length; i++){
+            while(top > 0 &&stack[top-1]>= arr[i]){
+                top--;
+                
             }
-
-            list.add(arr[i]);
+            stack[top] = arr[i];
+            top++;
         }
-        
-        int[] stk = new int[list.size()];
-        for(int i = 0; i < stk.length; i++){
-            stk[i] = list.get(i);
-        }
+        int[] stk = new int[top];
+        System.arraycopy(stack,0,stk,0,top);
         
         return stk;
     }
