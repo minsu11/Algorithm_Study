@@ -4,60 +4,38 @@ class Solution {
         List<Integer> list = new ArrayList<>();
         Map<String, Integer> map = new HashMap<>();
         // 0: 년도, 1: 달, 2: 일수
-        String[] todayArr = today.split("\\.");
-        int todayYear = Integer.parseInt(todayArr[0]);
-        int todayMonth = Integer.parseInt(todayArr[1]);
-        int todayDay = Integer.parseInt(todayArr[2]);
-
+        int todayDate = getDate(today);
         for(int i = 0; i < terms.length; i++){
             String[] s = terms[i].split(" ");
-            map.put(s[0] , Integer.parseInt(s[1]));
+            map.put(s[0] , Integer.parseInt(s[1])*28);
         }
         
-        for(int i = 0; i < privacies.length; i++){
-            String[] s = privacies[i].split(" ");
-            String type = s[1];
-            String[] s2 = s[0].split("\\.");
-            int year = Integer.parseInt(s2[0]);
-            int month = Integer.parseInt(s2[1]);
-            int day = Integer.parseInt(s2[2]);
-            // System.out.println("year: " +year);
-            // System.out.println("month:" + month);
-            // System.out.println();
-            int c = (month+map.get(type)) / 12;
+        for(int i =0; i < privacies.length; i++){
+            String[] t = privacies[i].split(" ");
+            String type = t[1];
+            int date = getDate(t[0]);
             
-            month = (month + map.get(type)) % 12;
-            
-            if(month == 0){
-                month = 12;
-                c -=1;
+            if(date + map.get(type) <= todayDate){
+                list.add(i+1);
             }
-            System.out.println("month: "+month);
-            System.out.println("today month : "+ todayMonth);
-            System.out.println();
-            System.out.println("day: "+day);
-            System.out.println("today day : "+ todayDay);
-            System.out.println();
-            if(year+c > todayYear){
-                continue;
-            }       
-            else if(year + c == todayYear && month > todayMonth){
-                continue;
-            }else if (year +c == todayYear && month == todayMonth && day > todayDay){
-                continue;
-            }
-            // System.out.println(type);
-            list.add(i+1);
         }
-        if(list.size() ==0){
+        
+        if(list.size() == 0){
             return new int[]{-1};
         }
-        
         int[] answer = new int[list.size()];
-        
         for(int i = 0; i < list.size(); i++){
-            answer[i] = list.get(i);
+            answer[i] =list.get(i);
         }
+       
         return answer;
+    }
+    
+    public int getDate(String date){
+        String[] dates = date.split("\\.");
+        int year = Integer.parseInt(dates[0]);
+        int month = Integer.parseInt(dates[1]);
+        int day = Integer.parseInt(dates[2]);
+        return (year * 12 * 28) + (month * 28) + day;
     }
 }
