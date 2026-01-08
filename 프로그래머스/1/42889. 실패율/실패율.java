@@ -1,13 +1,10 @@
-import java.util.*;
 class Solution {
     public int[] solution(int N, int[] stages) {
         int[] answer = new int[N];
         // 실패율이 높은 스테이지 부터 정렬해서 보여주면됨
         int totalUser = stages.length;
-        
         int[] s = new int[N];
         double[] failCalArr = new double[N];
-        Arrays.sort(stages);
         for(int i = 0; i < stages.length; i++){
             if(stages[i] - 1 >= N){
                 continue;
@@ -19,7 +16,6 @@ class Solution {
         for(int i = 0; i < N; i++){
             failCalArr[i] = s[i] == 0 ? 0 : (double) s[i] / totalUser;
             totalUser -= s[i];
-            System.out.println(failCalArr[i]);
         }
         
         for(int i = 0; i < N; i++ ){

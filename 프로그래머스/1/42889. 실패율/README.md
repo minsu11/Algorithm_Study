@@ -1,10 +1,10 @@
 # [level 1] 실패율 - 42889 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/42889) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/42889#) 
 
 ### 성능 요약
 
-메모리: 93.2 MB, 시간: 56.89 ms
+메모리: 85.1 MB, 시간: 7.46 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2026년 01월 08일 10:28:24
+2026년 01월 08일 10:36:37
 
 ### 문제 설명
 
