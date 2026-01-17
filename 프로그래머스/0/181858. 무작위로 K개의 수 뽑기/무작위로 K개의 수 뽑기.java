@@ -6,20 +6,16 @@ class Solution {
         for(int i = 0; i < k; i++){
             answer[i] = -1;
         }
+        int idx = 0;
         for(int n : arr){
-            set.add(n);
-        }
-        
-        Iterator<Integer> it = set.iterator();
-        int idx =0;
-        while(it.hasNext()){
-            if(idx >=k){
-                break;
+            if(set.add(n)){
+                answer[idx++] = n;
+                if(idx == k){
+                    break;
+                }
+                
             }
-            answer[idx] = it.next();
-            idx++;
         }
-        
         return answer;
     }
 }
