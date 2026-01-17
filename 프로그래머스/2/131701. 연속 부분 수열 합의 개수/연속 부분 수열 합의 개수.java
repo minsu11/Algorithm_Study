@@ -4,14 +4,12 @@ class Solution {
         int answer = 0;
         Set<Integer> set = new LinkedHashSet<>();
         int len = elements.length;
+        int[] dp = new int[len];
         for(int i = 0; i < len; i++){
             for(int j = 0; j < len; j++){
-                int num = 0;
-                for(int k =0; k <=i; k++){
-                    int idx = (j+k) % len;
-                    num += elements[idx];
-                }
-                set.add(num);
+                int idx = (j+i) % len;
+                dp[j] += elements[idx];
+                set.add(dp[j]);
             }
         }
         answer = set.size();
