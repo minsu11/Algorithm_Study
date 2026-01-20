@@ -27,13 +27,7 @@ class Solution {
             int before = cur -1;
             int next = cur +1;
             
-            if(cur == 0  && arr[next] ==0){
-                arr[cur + 1]++;
-                arr[cur]--;
-            }else if(cur == n -1 && arr[before] ==0){
-                arr[cur]--;
-                arr[cur - 1]++;
-            }else if(before >=0 && arr[before] ==0 ){
+            if(before >=0 && arr[before] ==0 ){
                 arr[cur]--;
                 arr[cur - 1]++;
             }else if(next <n && arr[next] == 0 ){
