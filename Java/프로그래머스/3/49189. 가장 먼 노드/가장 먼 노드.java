@@ -30,7 +30,6 @@ class Solution {
             List<Integer> list = map.get(node);
             
             if(maxFloor == floor){
-                System.out.println("floor: "+ floor);
                 answer++;
             }else if(maxFloor < floor){
                 maxFloor = floor;
