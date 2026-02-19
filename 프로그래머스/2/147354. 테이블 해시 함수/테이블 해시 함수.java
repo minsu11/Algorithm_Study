@@ -7,8 +7,7 @@ class Solution {
         Arrays.sort(data, (a,b) -> {if(a[col-1] != b[col-1]) return Integer.compare(a[col-1], b[col-1]);
                     return Integer.compare(b[0], a[0]);
                                    });
-        int len = row_end - row_begin+1;
-        int[] arr = new int[len];
+        
         
         for(int i = row_begin; i<= row_end; i++){
             int result = 0;
@@ -16,12 +15,9 @@ class Solution {
                 result+= data[i-1][j] % i;
             }
             
-            arr[i-row_begin] = result;
+            answer = answer ^ result;
         }
-        answer = arr[0];
-        for(int i =1; i< len; i++){
-            answer = answer ^ arr[i];
-        }
+       
         
         return answer;
     }
