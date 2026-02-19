@@ -2,7 +2,6 @@ import java.util.*;
 class Solution {
     // dfs, bfs 버전으로 풀기
     public int solution(int[][] maps) {
-        int answer = Integer.MAX_VALUE;
         int col = maps.length;
         int row = maps[0].length;
         boolean[][] check = new boolean[col][row];
@@ -16,8 +15,8 @@ class Solution {
             int y = cur[1];
             int value = cur[2];
          
-            if(x == col-1 && y == row-1 && value < answer){
-                answer =value;
+            if(x == col-1 && y == row-1 ){
+                return value;
             }
             
             // 위로
@@ -40,10 +39,6 @@ class Solution {
             
             
         }
-        if(answer == Integer.MAX_VALUE){
-            answer = -1;
-        }
-        
-        return answer;
+        return -1;
     }
 }
