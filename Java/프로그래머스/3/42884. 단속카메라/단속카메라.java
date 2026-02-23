@@ -1,27 +1,15 @@
 import java.util.*;
 class Solution {
     public int solution(int[][] routes) {
-        int answer = 0;
-        boolean[] check = new boolean[routes.length];
-        // 정렬?
+        int answer = 1;
         Arrays.sort(routes, Comparator.comparingInt(a->a[1]));
-        
-        for(int i = 0; i < routes.length; i++){
+        int start = routes[0][1];
+        for(int i = 1; i < routes.length; i++){
             // 차량이 만나는지점
-            if(check[i]){
-                continue;
-            } 
-            int start =routes[i][1];
-            check[i] = true;
-            for(int j = i; j< routes.length; j++){
-                if(check[j]){
-                    continue;
-                }
-                if(start >= routes[j][0]){
-                    check[j] = true;
-                }
+            if(start < routes[i][0]){
+                start =routes[i][1];
+                answer++;
             }
-            answer++;
         }
         
         return answer;
