@@ -28,13 +28,9 @@ class Solution {
                    }
                }
                int distance = Math.abs(pos1- pos2)-1;
-               if(op == '=' && distance == num){
-               }else if(op == '>' && distance  > num){
-               }else if(op == '<' && distance < num){
-                   
-               }else {
-                   return;
-               }
+               if(op == '=' && distance != num) return;
+                if(op == '>' && distance <= num) return;
+                if(op == '<' && distance >= num) return;
               
            }
             cnt++;
