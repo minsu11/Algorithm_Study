@@ -6,13 +6,9 @@ class Solution {
             return new int[]{-1};
         }
         int[] answer = new int[n];
-        int num = s;
-        int op = n;
         for(int i = 0; i < n;i++){
-            answer[i] = num/op;
-            num -= num/op;
-            op-=1;
-            
+            answer[i] = s/(n-i);
+            s -= s/(n-i);
         }
         
         return answer;
