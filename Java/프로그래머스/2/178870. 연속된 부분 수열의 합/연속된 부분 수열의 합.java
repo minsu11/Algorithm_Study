@@ -6,8 +6,8 @@ class Solution {
         int last = 0;
         int sum = 0;
         int[] seq = sequence;
-        List<int[]> list = new ArrayList<>();
-        
+        int min = Integer.MAX_VALUE;
+
         for(int i = 0; i < seq.length; i++){
             sum+= seq[i];
             
@@ -15,19 +15,14 @@ class Solution {
                 sum -= seq[start];
                 start+=1;
             }
-            if(sum == k){
-                list.add(new int[]{start,i, i - start});
+            if(sum == k && min > i - start){
+                answer[0] = start;
+                answer[1] = i;
+                min = i - start;
             }
         }
-        int min = Integer.MAX_VALUE;
         
-        for(int[] arr : list){
-            if(min > arr[2]){
-                answer[0] = arr[0];
-                answer[1] = arr[1];
-                min = arr[2];
-            }
-        }
+        
         return answer;
     }
     
