@@ -13,25 +13,20 @@ class Solution {
         this.b = new int[banned_id.length];
         visited = new boolean[user.length];
         dfs(0,0);
-        
-        for(int i =0; i < list.size();i++){
-            int[] arr = list.get(i);
-            int num = 0;
-            for(int j = 0; j < arr.length; j++){
-                num |= (1 << arr[j]);
-            }
-            set.add(num);
-        }
-        
+
         return set.size();
     }
     
     public void dfs(int sum,int idx){
         if(ban.length == idx){
-            list.add(b.clone());
+            int num = 0;
+            for(int j = 0; j < b.length; j++){
+                num |= (1 << b[j]);
+            }
+            set.add(num);
+        
             return;
         }
-        
         
             for(int j = 0; j < user.length; j++){
                 if(!visited[j] && user[j].length() == ban[idx].length()){
