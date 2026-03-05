@@ -40,7 +40,7 @@ class Solution {
             for(int i =0; i < 4; i++){
                 int newX = x + dirX[i];
                 int newY = y + dirY[i];
-                if(newX <0 || newX >=col || newY <0 || newY >=col){
+                if(newX <0 || newX >=col || newY <0 || newY >=row){
                     continue;
                 }
                 if(visited[newX][newY]){
