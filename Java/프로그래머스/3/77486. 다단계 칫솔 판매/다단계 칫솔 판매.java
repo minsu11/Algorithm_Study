@@ -2,41 +2,40 @@ import java.util.*;
 
 class Solution {
     public int[] solution(String[] enroll, String[] referral, String[] seller, int[] amount) {
-        int[] answer = new int[enroll.length];
+        int n = enroll.length;
+        int[] answer = new int[n];
         // key 본인, value 연결된 사람
-        Map<String, String> map = new HashMap<>();
-        Map<String, Integer> priceMap = new HashMap<>();
-        for(int i =0; i < referral.length; i++){
-            map.put(enroll[i], referral[i]);            
-            priceMap.put(enroll[i], 0);
+        Map<String, Integer> map = new HashMap<>();
+        for(int i =0; i < n; i++){
+            map.put(enroll[i], i);
         }
+        int[] parent = new int[n];
+        for(int i =0; i < n; i++){
+            parent[i] = referral[i].equals("-") ? -1 : map.get(referral[i]);
+        }
+        
         for(int i=0; i < seller.length; i++){
-            int price =0;
-            int num = amount[i] * 100;
-            String child = seller[i];
-            String parent ="";
-            while(!child.equals("-")){
-                parent = map.get(child);
-                price = priceMap.get(child);
-                int money = num / 10;
+            int total = amount[i] * 100;
+            
+            int child = map.get(seller[i]);
+            while(child>=0){
+                int parentIdx = parent[child];
+                
+                int money = total / 10;
                 
                 if(money >0){
-                    num -= money;
-                    priceMap.put(child, price+num);
-                    num = money;
+                    total -= money;
+                    answer[child] +=total;
+                    total = money;
                     
                 }else{
-                    priceMap.put(child, price + num);
+                    answer[child] +=total;
                     break;
                 }
-                child = parent;
+                child = parentIdx;
                 
             }
-            
-            
-        }
-        for(int i =0 ; i < enroll.length; i++){
-            answer[i] = priceMap.get(enroll[i]);
+
         }
         
         return answer;
