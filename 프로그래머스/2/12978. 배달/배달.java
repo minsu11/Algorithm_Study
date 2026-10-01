@@ -2,55 +2,59 @@ import java.util.*;
 class Solution {
     public int solution(int N, int[][] road, int K) {
         int answer = 0;
-        // N 마을 갯수
-        // k 제한 시간
-        int[][] arr = new int[N][N];
-        int[] dist = new int[N];
-        int INF = Integer.MAX_VALUE;
-        Arrays.fill(dist, INF);
+        // N : 마을의 갯수
+        // K: 제한 시간
+        Queue<int[]> que = new PriorityQueue<>(
+            (a, b) -> Integer.compare(a[1], b[1])
+        );
+        int[] dist = new int[N+1];
+        Arrays.fill(dist, Integer.MAX_VALUE);
+        dist[1] = 0;
+        
+        List<int[]> graph[] = new List[N+1];
+        for(int i =1; i<= N; i++){
+            graph[i] = new ArrayList<>(); 
+        }
         
         for(int i = 0; i < road.length; i++){
-            int x = road[i][0]-1;
-            int y = road[i][1]-1;
+            int num1 = road[i][0];
+            int num2 = road[i][1];
             int value = road[i][2];
-            
-            if(arr[x][y] == 0 || arr[x][y] > value){
-                arr[x][y] = value;
-            }
-            if(arr[y][x] == 0 || arr[y][x] > value){
-                arr[y][x] = value;
-            }
+            graph[num1].add(new int[]{num2, value});
+            graph[num2].add(new int[]{num1, value});
         }
+        que.add(new int[]{1,0});
         
-        PriorityQueue<int[]> q = new PriorityQueue<>(Comparator.comparingInt(a->a[1]));
-        q.add(new int[]{0,0});
-        dist[0] = 0;
-       
-        while(!q.isEmpty()){
-            int[] cur = q.poll();
-            int node = cur[0];
-            int curDist = cur[1];
-            if(curDist > dist[node]){
-                continue;
-            }
-            for(int next = 0; next < N; next++){
-                if(arr[node][next] == 0){
+        while(!que.isEmpty()){
+            int[] value = que.poll();
+            int village = value[0];
+            int distance = value[1];
+            
+            for(int i =0; i < graph[village].size(); i++){
+                int[] nextValue = graph[village].get(i);
+                int next = nextValue[0];
+                int nextDist = nextValue[1];
+                if(distance + nextDist > K){
                     continue;
                 }
-                int nextDist = curDist+ arr[node][next];
-                if(nextDist < dist[next] ){
-                    dist[next] = nextDist;
-                    q.add(new int[]{next, nextDist});
+                if (distance > dist[village]) {
+                    continue;
                 }
+                
+                if(distance + nextDist < dist[next]){
+                    dist[next]= distance + nextDist;
+                    que.add(new int[]{next, dist[next] });
+                }
+                
             }
+            
         }
-        for(int i =0 ; i < N; i++){
-            if(dist[i] <=K){
-                answer++;
-            }
-        }
-       
         
+        for(int n : dist){
+            if(n <=K){
+                answer+=1;
+            }
+        }
         return answer;
     }
 }
