@@ -2,26 +2,26 @@ import java.util.*;
 class Solution {
     public int[] solution(int[] sequence, int k) {
         int[] answer = new int[2];
-        int start = 0;
-        int last = 0;
+        answer[1] = Integer.MAX_VALUE;
+        // k 목표
+        int left = 0;
+        int right = 0;
         int sum = 0;
-        int[] seq = sequence;
-        int min = Integer.MAX_VALUE;
-
-        for(int i = 0; i < seq.length; i++){
-            sum+= seq[i];
+        for(int i = 0; i < sequence.length; i++){
+            sum += sequence[i];
+            right = i;
             
-            while(sum > k){ 
-                sum -= seq[start];
-                start+=1;
+            while(sum > k){
+                sum -= sequence[left];
+                left +=1;
             }
-            if(sum == k && min > i - start){
-                answer[0] = start;
-                answer[1] = i;
-                min = i - start;
+            
+            if(sum == k && right - left < answer[1] - answer[0] ){
+                answer[0] = left;
+                answer[1] = right;
             }
+            
         }
-        
         
         return answer;
     }
