@@ -7,36 +7,25 @@ class Solution {
         int belt = 1;
         for(int i =0; i< order.length; i++){
             int targetNum = order[i];
-            if(!stack.isEmpty() && stack.peek() == targetNum ){
-                stack.pop();
-                answer++;
-                continue;
-            }
-            else if(belt == targetNum){
-                belt+=1;
-                answer++;
-                continue;
-            }
             
-            
-            while(targetNum != belt && belt <= order.length){
+            while( belt <= order.length &&  belt < targetNum){
                 stack.push(belt);
                 belt+=1;
             }
             
+            if(belt == targetNum){
+                belt+=1;
+                answer++;
+                continue;
+            }
             
             if(stack.peek() == targetNum ){
                 stack.pop();
                 answer++;
                 continue;
             }
-            else if(belt == targetNum){
-                belt+=1;
-                answer++;
-                continue;
-            }else{
-                break;
-            }
+            break;
+            
             
         }
         return answer;
