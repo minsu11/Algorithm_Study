@@ -1,45 +1,43 @@
 import java.util.*;
 class Solution {
     public int solution(int[] queue1, int[] queue2) {
-        // 두 큐의 최대 움직임에 대한 계산 했으면 더 쉽게 끝냈을 거
         int answer = 0;
-        long result1 = 0;
-        long result2 =0;
-        int size = queue1.length;
-        Queue<Integer> cpQueue1 = new LinkedList<>();
-        Queue<Integer> cpQueue2 = new LinkedList<>();
-        
-        
+        long q1 = 0L;
+        long q2 = 0L;
+        long n1 = 0L;
+        long n2 = 0L;
+        Deque<Integer> que1 = new ArrayDeque<>();
+        Deque<Integer> que2 = new ArrayDeque<>();
+       
         for(int i = 0; i < queue1.length; i++){
-            cpQueue1.add(queue1[i]);
-            cpQueue2.add(queue2[i]);
-            result1 += queue1[i];
-            result2 += queue2[i];
+            q1+=queue1[i];
+            q2+=queue2[i];
+            que1.add(queue1[i]);
+            que2.add(queue2[i]);
         }
-        if(result1 + result2 % 2 == 1){
-            return -1;
-        }
-        for(int i = 0; i <= 3*size -3; i++){        
-            int num = 0;
-            if(result1 == result2){
+        while(!que1.isEmpty() && !que2.isEmpty() ){
+            if(q1 == q2){
                 return answer;
             }
-            else if(result1 < result2){
-                num = cpQueue2.poll();
-                cpQueue1.add(num);
-                answer++;
-                result2 -= num;
-                result1 += num;
-                
+            
+            if(answer > queue1.length + queue2.length + 100){
+                break;
             }
-            else if(result2 < result1){
-                num = cpQueue1.poll();
-                cpQueue2.add(num);
-                answer++;
-                result1 -= num;
-                result2 += num;
+            
+            int num =0;
+            if(q1 > q2){
+                num = que1.poll();
+                que2.add(num);
+                q1 -= num;
+                q2 +=num;
+            }else {
+                num = que2.poll();
+                que1.add(num);
+                q1 +=num;
+                q2 -=num;
             }
-           
+            answer+=1;
+            
             
         }
         
