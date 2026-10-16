@@ -15,14 +15,12 @@ class Solution {
             que1.add(queue1[i]);
             que2.add(queue2[i]);
         }
-        while(!que1.isEmpty() && !que2.isEmpty() ){
+        while(answer <= queue1.length * 4 ){
             if(q1 == q2){
                 return answer;
             }
             
-            if(answer > queue1.length + queue2.length + 100){
-                break;
-            }
+            
             
             int num =0;
             if(q1 > q2){
