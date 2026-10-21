@@ -3,32 +3,36 @@ class Solution {
     
     public int solution(int n, int[][] computers) {
         int answer = 0;
-        // 본인은 1
-        boolean[] visited = new boolean[n];
-       
-        Deque<Integer> q= new ArrayDeque<>();
+        boolean[] visited = new boolean[n+1];
+        Deque<Integer> que = new ArrayDeque<>();
+        
         for(int i = 0; i < n; i++){
             if(visited[i]){
                 continue;
             }
-            q.add(i);
+            que.add(i);
             visited[i] = true;
-            while(!q.isEmpty())
-            {
-                int cur = q.poll();
-                for(int next = 0; next < n; next++){
-                    if (cur == next) continue;
-                    if(!visited[next] && computers[cur][next] ==1){
-                        q.add(next);
-                        visited[next]=true;
+            
+            while(!que.isEmpty()){
+                int cur = que.poll();
+                int[] value = computers[cur];
+                
+                for(int j = 0; j < n; j++){
+                    if(visited[j]){
+                        continue;
+                    }
+                    
+                    if( value[j] == 1 && computers[j][cur] == 1){
+                        que.add(j);
+                        visited[j] = true;
                     }
                 }
+                
             }
             
-            answer++;
             
+            answer+=1;
         }
-        
         
         return answer;
     }
