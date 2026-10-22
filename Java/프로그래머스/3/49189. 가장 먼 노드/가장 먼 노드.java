@@ -6,22 +6,9 @@ class Solution {
         Map<Integer, List<Integer>> map = new HashMap<>();
         
         for(int i = 0; i < edge.length; i++){
-            List<Integer> list;
-            if(!map.containsKey(edge[i][0])){
-                list = new ArrayList<>();
-            }else{
-                list = map.get(edge[i][0]);
-            }
-            list.add(edge[i][1]);
-            map.put(edge[i][0], list);
+            map.computeIfAbsent(edge[i][0], k -> new ArrayList<>()).add(edge[i][1]);
+            map.computeIfAbsent(edge[i][1], k -> new ArrayList<>()).add(edge[i][0]);
             
-            if(!map.containsKey(edge[i][1])){
-                list = new ArrayList<>();
-            }else{
-                list = map.get(edge[i][1]);
-            }
-            list.add(edge[i][0]);
-            map.put(edge[i][1], list);
         }
         
         Deque<int[]> q = new ArrayDeque<>();
