@@ -11,7 +11,7 @@ class Solution {
             dp[i]= (dp[i-1] + dp[i-2]) %1234567;
         }
         answer = dp[n];
-        return answer%1234567;
+        return answer;
     }
     
     
