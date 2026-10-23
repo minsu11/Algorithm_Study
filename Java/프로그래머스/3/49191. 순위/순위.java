@@ -1,67 +1,59 @@
 import java.util.*;
 class Solution {
     public int solution(int n, int[][] results) {
-        // 앞 사람이 이김
         int answer = 0;
-        // i가 이긴 사람
-        Map<Integer, List<Integer>> winMap = new HashMap<>();
-        // i가 진 사람
-        Map<Integer, List<Integer>> loseMap = new HashMap<>();
+        // 이긴 사람이랑 진 사람을 따로 분리
+        Map<Integer, Set<Integer>> winnerMap = new HashMap<>();
         
-        for(int i = 1 ; i <= n; i++){
-            winMap.put(i, new ArrayList<>());
-            loseMap.put(i, new ArrayList<>());
-        }
-        
-        for(int i = 0; i < results.length; i++){
-            int win =results[i][0];
-            int lose = results[i][1];
-            List<Integer> winList = winMap.get(win);
-            List<Integer> loseList = loseMap.get(lose);
-            winList.add(lose);
-            loseList.add(win);
-            
-            winMap.put(win,winList);
-            loseMap.put(lose, loseList);
-        }
+        Map<Integer, Set<Integer>> loserMap = new HashMap<>();
         
         for(int i = 1; i <= n; i++){
-            // 이긴 사람 bfs
-            Deque<Integer> q = new ArrayDeque<>();
-            boolean[] visited = new boolean[n];
-            q.add(i);
-            int winCnt = -1;
-            while(!q.isEmpty()){
-                int cur = q.poll();
-                if(visited[cur-1]){
-                    continue;
-                }
-                visited[cur-1]= true;
-                List<Integer> list = winMap.get(cur);
-                winCnt++;
-                for(int j =0; j < list.size(); j++){
-                    q.add(list.get(j));
-                }
-            }
-            boolean[] loseVisited = new boolean[n];
-            q.add(i);
-            int loseCnt = -1;
-            while(!q.isEmpty()){
-                int cur = q.poll();
-                if(loseVisited[cur-1]){
-                    continue;
-                }
-                loseVisited[cur-1]= true;
-                List<Integer> list = loseMap.get(cur);
-                loseCnt++;
-                for(int j =0; j < list.size(); j++){
-                    q.add(list.get(j));
-                }
-            }
-            if(winCnt + loseCnt == n-1){
-                answer++;
-            }            
+            Set<Integer> set1 = new HashSet<>();
+            Set<Integer> set2 = new HashSet<>();
+            winnerMap.put(i, set1);
+            loserMap.put(i, set2);
         }
+        
+        int[] arrCnt = new int[n+1];
+        for(int i = 0; i < results.length; i++){
+            int winner = results[i][0];
+            int loser = results[i][1];
+            
+            winnerMap.computeIfAbsent(winner, (k) -> new HashSet<>()).add(loser);
+            loserMap.computeIfAbsent(loser,(k) -> new HashSet<>()).add(winner);
+        }
+        for(int i = 1; i <= n; i++){
+            // 결국에는 A B가 있으면 B가 졌잖아? 그러면 사실 그냥 A가 진 사람한테도 지는 거니깐 
+            // 이긴 사람
+            Set<Integer> winnerSet = winnerMap.get(i);
+            // 진 사람
+            Set<Integer> loserSet = loserMap.get(i);
+            
+            // 그러면 i가 이긴 사람의 loser map에 i가 진 사람을 넣어.
+            for(Integer winner: winnerSet){
+                for(Integer loser : loserSet){
+                    Set<Integer> s = loserMap.get(winner);
+                    s.add(loser);
+                    loserMap.put(winner, s);
+                    
+                    Set<Integer> s1 = winnerMap.get(loser);
+                    s1.add(winner);
+                    winnerMap.put(loser,s1);
+                }
+            }
+            
+        }
+        
+        for(int i = 1; i <=n;i++){
+            int winner =  winnerMap.get(i).size();
+            int loser = loserMap.get(i).size();
+            
+            if(winner+loser == n-1){
+                answer+=1;
+            }
+        }
+     
+        
         
         return answer;
     }
